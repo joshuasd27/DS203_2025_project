@@ -3,6 +3,8 @@ Only LBP will be used.
 each image is give number.jpg. 
 Format in annotations.txt is (image_number grid_cell_1,grid_cell_2,...,grid_cell_64)
 
+Gaussian Blur worked a bit?
+
 Results from the hand annotations file 
 
 <img width="717" height="476" alt="image" src="https://github.com/user-attachments/assets/2af1ce45-6680-43e1-9998-06125216add3" />
