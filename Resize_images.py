@@ -5,13 +5,16 @@ import pandas as pd
 from skimage.feature import hog
 from skimage.color import rgb2gray
 
-def process_image(image_path):
+def process_image(image_path, img_in = None):
     """
     Open image, resize if >800x600, divide into 8x8 grids,
     compute HOG features for each grid.
     Returns: list of feature vectors for all 64 grids.
     """
-    img = cv2.imread(image_path)
+    if img_in is None:
+        img = cv2.imread(image_path)
+    else:
+        img = img_in
     if img is None:
         print(f"Error loading {image_path}")
         return None
@@ -21,36 +24,10 @@ def process_image(image_path):
     # Resize if larger than 800x600
     if w > 800 or h > 600:
         img = cv2.resize(img, (800, 600))
-        print(f"Resized {os.path.basename(image_path)} from ({w},{h}) to (800,600)")
-    else:
-        print(f"Kept original size for {os.path.basename(image_path)}: ({w},{h})")
+        #print(f"Resized {os.path.basename(image_path)} from ({w},{h}) to (800,600)")
+    #else:
+        #print(f"Kept original size for {os.path.basename(image_path)}: ({w},{h})")
     return img
-'''
-    gray = rgb2gray(img)
-
-    num_rows, num_cols = 8, 8
-    grid_h, grid_w = gray.shape[0] // num_rows, gray.shape[1] // num_cols
-
-    hog_features_all = []
-    for i in range(num_rows):
-        for j in range(num_cols):
-            y1, y2 = i * grid_h, (i + 1) * grid_h
-            x1, x2 = j * grid_w, (j + 1) * grid_w
-            patch = gray[y1:y2, x1:x2]
-
-            features = hog(
-                patch,
-                orientations=9,
-                pixels_per_cell=(8, 8),
-                cells_per_block=(2, 2),
-                block_norm='L2-Hys',
-                transform_sqrt=True,
-                feature_vector=True
-            )
-
-            hog_features_all.append(features)
-
-    return hog_features_all'''
 
 
 # ---------- MAIN SCRIPT ----------

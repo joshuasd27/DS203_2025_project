@@ -6,9 +6,12 @@ from tqdm import tqdm
 from skimage.feature import hog
 from skimage.color import rgb2gray
 
-def process_image(image_path):
+def process_image(image_path, img_in = None):
     """Resize if >800x600, divide into 8x8 grids, compute HOG features."""
-    img = cv2.imread(image_path)
+    if img_in is not None:
+        img = cv2.imread(image_path)
+    else:
+        img = img_in
     if img is None:
         print(f"Error loading {image_path}")
         return None
